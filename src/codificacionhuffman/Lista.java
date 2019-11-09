@@ -48,8 +48,8 @@ public class Lista {
                 return true;
             }
             else{
-                actual.setSiguiente(actual);
-               return existe = BuscarNodo(caracter, actual, existe);
+                actual = actual.getSiguiente();
+               return  BuscarNodo(caracter, actual, existe);
             }
         }
         else{

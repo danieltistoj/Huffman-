@@ -17,8 +17,18 @@ public class Huffman {
     private String cadena = "";
     
     
-    
-    
+    // ve cuantas veces se repite un caracter en una cadena
+    public int FrecuenciaCaracter(char caracter, String cadena){
+        int frecuencia = 0;
+        for(int i=0; i<cadena.length();i++){
+            if(caracter == cadena.charAt(i)){
+                frecuencia++;
+            }
+            
+        }
+        return frecuencia;
+    }
+     //lee un archi txt y retorna lo que tenga el archivo en una cadean un string        
     public String LeerArchivo(String direccion){
         cadena = "";
         File archivo;
