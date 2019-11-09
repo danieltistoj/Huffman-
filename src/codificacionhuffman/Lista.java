@@ -13,24 +13,20 @@ public class Lista {
    private Nodo tope=null;
    private int size=0;
    
-   public void Insertar(int frecuencia,char caracter){
-       tope = Agregar(frecuencia,tope,caracter);
+   public void Insertar(Nodo nodo_referencia){
+       tope = Agregar(tope,nodo_referencia);
        size++;
    }
    
-   private Nodo Agregar(int frecuencia, Nodo actual,char caracter){
+   private Nodo Agregar( Nodo actual,Nodo nodo_referencia){
        if(actual==null){
-           actual = new Nodo();
-           actual.setFrecuencia(frecuencia);
-           actual.setCaracter(caracter);
+           actual = nodo_referencia;
            actual.setSiguiente(null);
        }else{
-           if(actual.getFrecuencia()<frecuencia){
-               actual.setSiguiente(Agregar(frecuencia,actual.getSiguiente(),caracter));
+           if(actual.getFrecuencia()<nodo_referencia.getFrecuencia()){
+               actual.setSiguiente(Agregar(actual.getSiguiente(),nodo_referencia));
            }else{
-               Nodo aux = new Nodo();
-               aux.setFrecuencia(frecuencia);
-               aux.setCaracter(caracter);
+               Nodo aux = nodo_referencia;
                aux.setSiguiente(actual);
                actual = aux;
            }
@@ -64,6 +60,14 @@ public class Lista {
             System.out.println("Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia());
             nodo_actual = nodo_actual.getSiguiente();
         }
+    }
+
+    public Nodo getTope() {
+        return tope;
+    }
+
+    public int getSize() {
+        return size;
     }
     
     

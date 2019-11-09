@@ -16,10 +16,17 @@ public class CodificacionHuffman {
      */
     public static void main(String[] args) {
         
-        //funcionamiento de la clase de lectura de archivo txt de la clase huffman
+        //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         Huffman compresion = new Huffman();
+        //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
+        String cadena = "hola mama";
+        System.out.println("cadena: "+cadena);
+        compresion.CrearListaFrecuencias(cadena);
+        compresion.getLista().Mostrar();
+        /*
        // System.out.println(compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\hola.txt"));
-      String cadena = "hola como esta";
+       //***Funcionamiento de la frecuencia de cada caracter
+        String cadena = "hola como esta";
         System.out.println("cadena a evaluar: "+cadena);
         System.out.println("Frecuencia de h: " +compresion.FrecuenciaCaracter('h',cadena));
         System.out.println("Frecuencia de o: " +compresion.FrecuenciaCaracter('o',cadena));
@@ -30,9 +37,9 @@ public class CodificacionHuffman {
         System.out.println("Frecuencia de t: " +compresion.FrecuenciaCaracter('t',cadena));
          System.out.println("Frecuencia de m: " +compresion.FrecuenciaCaracter('t',cadena));
                 
-
+*/
      /*   
-        //funcionamiento de la lista 
+        //**Funcionamiento de la lista 
         Lista lista = new Lista();
         lista.Insertar(3,'h');
         lista.Insertar(2,'g');

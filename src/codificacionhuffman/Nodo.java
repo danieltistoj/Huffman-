@@ -11,9 +11,9 @@ package codificacionhuffman;
  */
 public class Nodo {
     private char caracter;
-    private int frecuencia;
+    private int frecuencia,lado;
     private String clave;
-    private Nodo Hijoder, Hijoizq, siguiente;
+    private Nodo Hijoder, Hijoizq, siguiente,padre;
 
     public Nodo() {
         this.Hijoder = null;
@@ -67,6 +67,22 @@ public class Nodo {
 
     public void setSiguiente(Nodo siguiente) {
         this.siguiente = siguiente;
+    }
+
+    public int getLado() {
+        return lado;
+    }
+
+    public void setLado(int lado) {
+        this.lado = lado;
+    }
+
+    public Nodo getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Nodo padre) {
+        this.padre = padre;
     }
     
    
