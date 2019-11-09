@@ -1,0 +1,73 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package codificacionhuffman;
+
+/**
+ *
+ * @author Usuario
+ */
+public class Nodo {
+    private char caracter;
+    private int frecuencia;
+    private String clave;
+    private Nodo Hijoder, Hijoizq, siguiente;
+
+    public Nodo() {
+        this.Hijoder = null;
+        this.Hijoizq = null;
+    }
+
+    public Nodo getHijoder() {
+        return Hijoder;
+    }
+
+    public void setHijoder(Nodo Hijoder) {
+        this.Hijoder = Hijoder;
+    }
+
+    public Nodo getHijoizq() {
+        return Hijoizq;
+    }
+
+    public void setHijoizq(Nodo Hijoizq) {
+        this.Hijoizq = Hijoizq;
+    }
+    
+    public char getCaracter() {
+        return caracter;
+    }
+
+    public char setCaracter(char caracter) {
+        this.caracter = caracter;
+        return 0;
+    }
+
+    public int getFrecuencia() {
+        return frecuencia;
+    }
+
+    public void setFrecuencia(int frecuencia) {
+        this.frecuencia = frecuencia;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public Nodo getSiguiente() {
+        return siguiente;
+    }
+
+    public void setSiguiente(Nodo siguiente) {
+        this.siguiente = siguiente;
+    }
+    
+   
+}
