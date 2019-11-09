@@ -18,6 +18,7 @@ public class Huffman {
     
     
     
+    
     public String LeerArchivo(String direccion){
         cadena = "";
         File archivo;

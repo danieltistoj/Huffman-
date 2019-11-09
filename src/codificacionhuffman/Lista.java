@@ -13,28 +13,58 @@ public class Lista {
    private Nodo tope=null;
    private int size=0;
    
-   public void Insertar(int dato,char caracter){
-       tope = Agregar(dato,tope,caracter);
+   public void Insertar(int frecuencia,char caracter){
+       tope = Agregar(frecuencia,tope,caracter);
        size++;
    }
    
-   public Nodo Agregar(int dato, Nodo actual,char caracter){
+   private Nodo Agregar(int frecuencia, Nodo actual,char caracter){
        if(actual==null){
            actual = new Nodo();
-           actual.setFrecuencia(dato);
+           actual.setFrecuencia(frecuencia);
            actual.setCaracter(caracter);
            actual.setSiguiente(null);
        }else{
-           if(actual.getFrecuencia()<dato){
-               actual.setSiguiente(Agregar(dato,actual.getSiguiente(),caracter));
+           if(actual.getFrecuencia()<frecuencia){
+               actual.setSiguiente(Agregar(frecuencia,actual.getSiguiente(),caracter));
            }else{
                Nodo aux = new Nodo();
-               aux.setFrecuencia(dato);
+               aux.setFrecuencia(frecuencia);
+               aux.setCaracter(caracter);
                aux.setSiguiente(actual);
                actual = aux;
            }
        }
        return actual;
    }
+   public boolean Buscar(char caracter){
+       Nodo actual = tope;
+       boolean existe = false;
+      return BuscarNodo(caracter,actual, existe);
+   }
+    private boolean BuscarNodo(char caracter,Nodo actual,boolean existe){
+        if(actual!=null){
+            if(actual.getCaracter() == caracter){
+                return true;
+            }
+            else{
+                actual.setSiguiente(actual);
+               return existe = BuscarNodo(caracter, actual, existe);
+            }
+        }
+        else{
+            return existe = false;
+        }
+        
+    }
+    
+    public void Mostrar(){
+        Nodo nodo_actual = tope;
+        while(nodo_actual!=null){
+            System.out.println("Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia());
+            nodo_actual = nodo_actual.getSiguiente();
+        }
+    }
+    
     
 }
