@@ -40,9 +40,9 @@ public class Nodo {
         return caracter;
     }
 
-    public char setCaracter(char caracter) {
+    public void setCaracter(char caracter) {
         this.caracter = caracter;
-        return 0;
+        
     }
 
     public int getFrecuencia() {
@@ -83,6 +83,10 @@ public class Nodo {
 
     public void setPadre(Nodo padre) {
         this.padre = padre;
+    }
+
+    void setCaracter(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
    

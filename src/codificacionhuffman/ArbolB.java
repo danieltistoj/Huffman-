@@ -39,6 +39,14 @@ public class ArbolB {
         }
         return nodo;
     }
+
+    public Nodo getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Nodo raiz) {
+        this.raiz = raiz;
+    }
     
     
     
