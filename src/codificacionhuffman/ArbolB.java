@@ -10,8 +10,8 @@ package codificacionhuffman;
  * @author Usuario
  */
 public class ArbolB {
-    private Nodo raiz;
-    private int size;
+    private Nodo raiz, nodo_aux;
+    private int size,conta;
     private String cadena = "";
     
      public void Insertar(int  frecuencia){
@@ -40,18 +40,23 @@ public class ArbolB {
         return nodo;
     }
     
-    public int Ordenar_Pre(Nodo nodo){
-        int conta =0;
-        Nodo aux = nodo;
-        Preorden(aux);
-        return conta;
+    public void Buscar(char caracter){
+       conta =0;
+        Nodo aux = raiz;
+        BuscarNodo(aux,caracter);
+        System.out.println("");
+        System.out.println("conta: "+conta);
         
     }
-       private void Preorden(Nodo nodo_raiz){
+       private void BuscarNodo(Nodo nodo_raiz, char caracter){
         if(nodo_raiz!=null){
-           
-            Preorden(nodo_raiz.getHijoizq());
-            Preorden(nodo_raiz.getHijoder());
+            conta++;
+            if(caracter == nodo_raiz.getCaracter()){
+                nodo_aux = nodo_raiz;
+            }
+            System.out.println("caracter: "+nodo_raiz.getCaracter()+" frecunecia: "+nodo_raiz.getFrecuencia());
+            BuscarNodo(nodo_raiz.getHijoizq(),caracter);
+            BuscarNodo(nodo_raiz.getHijoder(),caracter);
         }
         
     }
@@ -62,6 +67,10 @@ public class ArbolB {
 
     public void setRaiz(Nodo raiz) {
         this.raiz = raiz;
+    }
+
+    public Nodo getNodo_aux() {
+        return nodo_aux;
     }
     
     
