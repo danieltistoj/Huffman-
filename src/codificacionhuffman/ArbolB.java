@@ -39,6 +39,22 @@ public class ArbolB {
         }
         return nodo;
     }
+    
+    public int Ordenar_Pre(Nodo nodo){
+        int conta =0;
+        Nodo aux = nodo;
+        Preorden(aux);
+        return conta;
+        
+    }
+       private void Preorden(Nodo nodo_raiz){
+        if(nodo_raiz!=null){
+           
+            Preorden(nodo_raiz.getHijoizq());
+            Preorden(nodo_raiz.getHijoder());
+        }
+        
+    }
 
     public Nodo getRaiz() {
         return raiz;
