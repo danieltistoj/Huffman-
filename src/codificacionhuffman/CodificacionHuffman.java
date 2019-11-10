@@ -19,7 +19,7 @@ public class CodificacionHuffman {
         //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         Huffman compresion = new Huffman();
         //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
-        String cadena = "mlkj";
+        String cadena = "hola";
         System.out.println("cadena: "+cadena);
         compresion.CrearListaFrecuencias(cadena);
         compresion.getLista().Mostrar();

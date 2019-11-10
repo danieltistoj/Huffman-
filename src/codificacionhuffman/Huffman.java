@@ -25,19 +25,11 @@ public class Huffman {
         Lista lista_aux = new Lista();//creamos una lista auxiliar 
         Nodo nodo_nuevo = new Nodo(), nodo_1 = new Nodo(),nodo_2 = new Nodo(),nodo_conti = null;//creamos cuatro nodos 
        //pasamos los datos de los dos primeros nodos a dos nuevos nodos 
-        nodo_1.setCaracter(lista.getTope().getCaracter());
-        nodo_1.setFrecuencia(lista.getTope().getFrecuencia());
-        nodo_1.setHijoder(lista.getTope().getHijoder());
-        nodo_1.setHijoizq(lista.getTope().getHijoizq());
-        
+        nodo_1 = lista.getTope();
+     
         nodo_1.setLado(0);//como es el menor de los dos lleva un 0
-                
-        nodo_2.setCaracter(lista.getTope().getSiguiente().getCaracter());
-        nodo_2.setFrecuencia(lista.getTope().getSiguiente().getFrecuencia());
-        nodo_2.setHijoder(lista.getTope().getSiguiente().getHijoder());
-        nodo_2.setHijoizq(lista.getTope().getSiguiente().getHijoizq());
-        nodo_2.setLado(1);//como es el mayor de los dos lleva un 1 
-        
+        nodo_2 = lista.getTope().getSiguiente();
+        nodo_2.setLado(1);
         //ponemos los datos del nuevo nodo, que tendra como caracter basio o 0, y como frecuencia las la suma de las frecuencias de los dos primeros nodos de la lista 
         nodo_nuevo.setFrecuencia(nodo_1.getFrecuencia()+nodo_2.getFrecuencia());
         nodo_nuevo.setHijoder(nodo_2);
@@ -63,27 +55,20 @@ public class Huffman {
             arbol = new ArbolB();
             arbol.setRaiz(lista.getTope());
             arbol.Buscar('o');
-            /*
-            Nodo raiz = new Nodo();
-            raiz.setFrecuencia(lista.getTope().getFrecuencia());
-            raiz.setCaracter(lista.getTope().getCaracter());
-            raiz.setHijoizq(lista.getTope().getHijoizq());
-            raiz.setHijoder(lista.getTope().getHijoder());
-            arbol = new ArbolB();
-            arbol.setRaiz(raiz);
-*/
         }
         //lista.Mostrar();
     }
-    //hacemos una nueva lista con los nodos que le siguen a los dos primeros que agarramos para formar los seudo arboles 
+    //hacemos una nueva lista con los nodos que le siguen a los dos primeros que agarramos para formar los seudo arboles
     private void NuevaLista(Lista lista_aux,Nodo nodo_conti){
       while(nodo_conti!=null){
+          
              Nodo nuevo_nodo = new Nodo();
              nuevo_nodo.setCaracter(nodo_conti.getCaracter());
              nuevo_nodo.setFrecuencia(nodo_conti.getFrecuencia());
              
              nuevo_nodo.setHijoder(nodo_conti.getHijoder());
              nuevo_nodo.setHijoizq(nodo_conti.getHijoizq());
+
              lista_aux.Insertar(nuevo_nodo);
              nodo_conti = nodo_conti.getSiguiente();
          }
