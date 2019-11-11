@@ -23,15 +23,22 @@ public class CodificacionHuffman {
         System.out.println("cadena: "+cadena);
         compresion.CrearListaFrecuencias(cadena);
         compresion.getLista().Mostrar();
-        System.out.println("");
+    
         compresion.CrearArbol();
-        Nodo nodo = compresion.getLista().getTope();
+        compresion.getArbol().Buscar('o');
+        //compresion.ClavesParaLetras();
+        //compresion.ClavesParaLetras();
+        //compresion.getLista().Mostrar();
+       //Nodo nodo = compresion.getLista().getTope();
+       // System.out.println("clave: "+nodo.getClave()+" caracter: "+nodo.getCaracter());
+       // Nodo nodo_aux = compresion.getArbol().Buscar('o');
+        //System.out.println(nodo_aux.getCaracter()+" "+nodo_aux.getFrecuencia());
         
         
 //         compresion.getArbol().setRaiz(nodo);
        // Nodo raiz = compresion.getArbol().getRaiz();
   
-         System.out.println("");
+        
      //    compresion.getArbol().Buscar('l');
          
          //System.out.println(compresion.getArbol().getNodo_aux().getCaracter());

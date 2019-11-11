@@ -11,7 +11,7 @@ package codificacionhuffman;
  */
 public class Nodo {
     private char caracter;
-    private int frecuencia,lado;
+    private int frecuencia,lado=-1;
     private String clave;
     private Nodo Hijoder, Hijoizq, siguiente,padre;
 

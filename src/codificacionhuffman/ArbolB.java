@@ -40,12 +40,13 @@ public class ArbolB {
         return nodo;
     }
     
-    public void Buscar(char caracter){
+    public Nodo Buscar(char caracter){
        conta =0;
         Nodo aux = raiz;
         BuscarNodo(aux,caracter);
-        System.out.println("");
-        System.out.println("conta: "+conta);
+       // System.out.println("");
+       // System.out.println("conta: "+conta);
+       return nodo_aux;
         
     }
        private void BuscarNodo(Nodo nodo_raiz, char caracter){
@@ -54,9 +55,34 @@ public class ArbolB {
             if(caracter == nodo_raiz.getCaracter()){
                 nodo_aux = nodo_raiz;
             }
-            System.out.println("caracter: "+nodo_raiz.getCaracter()+" frecunecia: "+nodo_raiz.getFrecuencia());
+            
+            System.out.println("caracter: "+nodo_raiz.getCaracter()+" frecunecia: "+nodo_raiz.getFrecuencia()+" lado: "+nodo_raiz.getLado());
+            if(nodo_raiz.getPadre()!=null){
+             System.out.println("caracter Padre: "+nodo_raiz.getPadre().getCaracter()+" frecunecia Padre: "+nodo_raiz.getPadre().getFrecuencia()+" lado Padre: "+nodo_raiz.getPadre().getLado());   
+                System.out.println("");
+            }
             BuscarNodo(nodo_raiz.getHijoizq(),caracter);
             BuscarNodo(nodo_raiz.getHijoder(),caracter);
+        }
+        
+    }
+       public Nodo Organizar(){
+        Nodo aux = raiz;
+        ReOrganizar(aux);
+       // System.out.println("");
+       // System.out.println("conta: "+conta);
+       return nodo_aux;
+        
+    }
+       private void ReOrganizar(Nodo nodo_raiz){
+        if(nodo_raiz!=null){
+            if((nodo_raiz.getHijoder()!=null) && (nodo_raiz.getHijoizq()!=null)){
+                nodo_raiz.getHijoizq().setPadre(nodo_raiz);
+                nodo_raiz.getHijoder().setPadre(nodo_raiz);
+            }
+              
+            ReOrganizar(nodo_raiz.getHijoizq());
+            ReOrganizar(nodo_raiz.getHijoder());
         }
         
     }

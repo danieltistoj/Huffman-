@@ -17,7 +17,38 @@ public class Huffman {
     private String cadena = "";
     private Lista lista;//tendra cada caracter de la cadena con su respectiva frecuencia 
     private ArbolB arbol;
-    
+   //***Paso 4 
+    //encontrar la clave binaria de 
+    public void ClavesParaLetras(){
+        CrearListaFrecuencias(cadena);
+        Nodo nodo_actual = lista.getTope();
+        String clave;
+        Lista lista_aux = new Lista();
+        char caracter;
+        String cadena1;
+        while(nodo_actual!=null){
+            caracter = nodo_actual.getCaracter();
+            Nodo nodo_caracter = arbol.Buscar(caracter);
+            clave = RecorridoAscendente(nodo_caracter);
+            nodo_caracter.setClave(clave);
+            nodo_actual = nodo_actual.getSiguiente();
+        }
+        
+    }
+    public String RecorridoAscendente(Nodo nodo){
+        String cadena = "";
+        Nodo nodo_padre = nodo.getPadre();
+        int lado = nodo.getLado();
+        char caracter = nodo.getCaracter();
+        while(nodo.getPadre()!= null){
+            cadena += nodo.getLado();
+            nodo = nodo.getPadre();
+        }
+        System.out.println("caracter: "+caracter+" clave: "+cadena+" Lado: "+lado);
+        System.out.println("caracter padre: "+nodo_padre.getCaracter()+" Lado: "+nodo_padre.getLado()+" Frecuencia: "+nodo_padre.getFrecuencia());
+        System.out.println("");
+        return cadena;
+    }
     //***Paso 3 
     //Crea el arbol en donde estan los nodos que contienen cada caracter con su debida frecuencia 
     public void CrearArbol(){
@@ -25,9 +56,10 @@ public class Huffman {
         Lista lista_aux = new Lista();//creamos una lista auxiliar 
         Nodo nodo_nuevo = new Nodo(), nodo_1 = new Nodo(),nodo_2 = new Nodo(),nodo_conti = null;//creamos cuatro nodos 
        //pasamos los datos de los dos primeros nodos a dos nuevos nodos 
-        nodo_1 = lista.getTope();
-     
+        //nodo_1 = lista.getTope();
+       nodo_1 = lista.getTope();
         nodo_1.setLado(0);//como es el menor de los dos lleva un 0
+        
         nodo_2 = lista.getTope().getSiguiente();
         nodo_2.setLado(1);
         //ponemos los datos del nuevo nodo, que tendra como caracter basio o 0, y como frecuencia las la suma de las frecuencias de los dos primeros nodos de la lista 
@@ -46,15 +78,15 @@ public class Huffman {
           lista_aux.Insertar(nodo_nuevo);//y por ultimo insertamos el nuevo nodo. 
           
           lista = lista_aux;
-            System.out.println("");
-          lista.Mostrar();
           CrearArbol();
           
         }
         else{
             arbol = new ArbolB();
             arbol.setRaiz(lista.getTope());
-            arbol.Buscar('o');
+            arbol.Organizar();
+            lista.setTope(null);
+            //arbol.Buscar('o');
         }
         //lista.Mostrar();
     }
@@ -65,10 +97,10 @@ public class Huffman {
              Nodo nuevo_nodo = new Nodo();
              nuevo_nodo.setCaracter(nodo_conti.getCaracter());
              nuevo_nodo.setFrecuencia(nodo_conti.getFrecuencia());
+             Nodo hijo_izq = nodo_conti.getHijoizq(), hijo_der = nodo_conti.getHijoder();        
+             nuevo_nodo.setHijoder(hijo_der);
+             nuevo_nodo.setHijoizq(hijo_izq);
              
-             nuevo_nodo.setHijoder(nodo_conti.getHijoder());
-             nuevo_nodo.setHijoizq(nodo_conti.getHijoizq());
-
              lista_aux.Insertar(nuevo_nodo);
              nodo_conti = nodo_conti.getSiguiente();
          }
@@ -78,6 +110,7 @@ public class Huffman {
     //***Paso 2 
     //Se crea la lista con los nodos que contienen cada caracter con su frecuencia y que estan de forma ordenada de menor a mayor 
     public void CrearListaFrecuencias(String cadena){
+        this.cadena = cadena;
         lista = new Lista();//va a contener cada caracter de la cadena con el numero de veces que se repite 
         char caracter_actual;
         int frecuencia;

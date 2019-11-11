@@ -69,6 +69,11 @@ public class Lista {
     public int getSize() {
         return size;
     }
+
+    public void setTope(Nodo tope) {
+        this.tope = tope;
+    }
+    
     
     
 }
