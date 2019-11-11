@@ -20,22 +20,30 @@ public class Huffman {
    //***Paso 4 
     //encontrar la clave binaria de 
     public void ClavesParaLetras(){
-        CrearListaFrecuencias(cadena);
+        CrearListaFrecuencias(cadena); //se crea una lista para tener cada letra para evaluarla en el arbol
         Nodo nodo_actual = lista.getTope();
         String clave;
-        Lista lista_aux = new Lista();
         char caracter;
         String cadena1;
-        while(nodo_actual!=null){
-            caracter = nodo_actual.getCaracter();
-            Nodo nodo_caracter = arbol.Buscar(caracter);
-            clave = RecorridoAscendente(nodo_caracter);
-            nodo_caracter.setClave(clave);
+        while(nodo_actual!=null){// se recorre la lista 
+            caracter = nodo_actual.getCaracter(); // se obtiene el caracter del nodo actual
+            Nodo nodo_caracter = arbol.Buscar(caracter);// se obtiene el nodo del caracter actual
+            clave = RecorridoAscendente(nodo_caracter);// se obtiene la clave recorriendo el arbol desde el nodo_caracter hasta la raiz 
+            clave = RotarClave(clave); // se rota la clave
+            nodo_caracter.setClave(clave);// la clave se agrega al nodo que tiene el caracter 
             nodo_actual = nodo_actual.getSiguiente();
         }
         
     }
-    public String RecorridoAscendente(Nodo nodo){
+    private String RotarClave(String clave){
+        String clave_rotada="";
+        for(int i=clave.length()-1;i>=0; i--){
+            clave_rotada+=clave.charAt(i);
+        }
+       // System.out.println("clave rotada: "+clave_rotada+" clave: "+clave);
+        return clave_rotada;
+    }
+    private String RecorridoAscendente(Nodo nodo){
         String cadena = "";
         Nodo nodo_padre = nodo.getPadre();
         int lado = nodo.getLado();
@@ -44,9 +52,11 @@ public class Huffman {
             cadena += nodo.getLado();
             nodo = nodo.getPadre();
         }
+        /*
         System.out.println("caracter: "+caracter+" clave: "+cadena+" Lado: "+lado);
         System.out.println("caracter padre: "+nodo_padre.getCaracter()+" Lado: "+nodo_padre.getLado()+" Frecuencia: "+nodo_padre.getFrecuencia());
         System.out.println("");
+*/
         return cadena;
     }
     //***Paso 3 
@@ -78,6 +88,8 @@ public class Huffman {
           lista_aux.Insertar(nodo_nuevo);//y por ultimo insertamos el nuevo nodo. 
           
           lista = lista_aux;
+          System.out.println("");
+          lista.Mostrar();
           CrearArbol();
           
         }
@@ -86,9 +98,9 @@ public class Huffman {
             arbol.setRaiz(lista.getTope());
             arbol.Organizar();
             lista.setTope(null);
-            //arbol.Buscar('o');
+            
         }
-        //lista.Mostrar();
+        
     }
     //hacemos una nueva lista con los nodos que le siguen a los dos primeros que agarramos para formar los seudo arboles
     private void NuevaLista(Lista lista_aux,Nodo nodo_conti){
@@ -135,7 +147,7 @@ public class Huffman {
         }
     }
     // ve cuantas veces se repite un caracter en una cadena
-    public int FrecuenciaCaracter(char caracter, String cadena){
+    private int FrecuenciaCaracter(char caracter, String cadena){
         int frecuencia = 0;
         for(int i=0; i<cadena.length();i++){
             if(caracter == cadena.charAt(i)){

@@ -55,12 +55,13 @@ public class ArbolB {
             if(caracter == nodo_raiz.getCaracter()){
                 nodo_aux = nodo_raiz;
             }
-            
+            /*
             System.out.println("caracter: "+nodo_raiz.getCaracter()+" frecunecia: "+nodo_raiz.getFrecuencia()+" lado: "+nodo_raiz.getLado());
             if(nodo_raiz.getPadre()!=null){
              System.out.println("caracter Padre: "+nodo_raiz.getPadre().getCaracter()+" frecunecia Padre: "+nodo_raiz.getPadre().getFrecuencia()+" lado Padre: "+nodo_raiz.getPadre().getLado());   
                 System.out.println("");
             }
+*/
             BuscarNodo(nodo_raiz.getHijoizq(),caracter);
             BuscarNodo(nodo_raiz.getHijoder(),caracter);
         }
@@ -83,6 +84,20 @@ public class ArbolB {
               
             ReOrganizar(nodo_raiz.getHijoizq());
             ReOrganizar(nodo_raiz.getHijoder());
+        }
+        
+    }
+       public void Mostrar(){
+        Nodo aux = raiz;
+        MostrarArbol(aux);
+       
+        
+    }
+       private void MostrarArbol(Nodo nodo_raiz){
+        if(nodo_raiz!=null){
+            System.out.println("Caracter: "+nodo_raiz.getCaracter()+" Frecuencia: "+nodo_raiz.getFrecuencia()+" Clave: "+nodo_raiz.getClave());
+            MostrarArbol(nodo_raiz.getHijoizq());
+            MostrarArbol(nodo_raiz.getHijoder());
         }
         
     }
