@@ -14,9 +14,28 @@ import java.io.FileReader;
  * @author Usuario
  */
 public class Huffman {
-    private String cadena = "";
+    private String cadena,cadena_binaria,cadenaAscii;
     private Lista lista;//tendra cada caracter de la cadena con su respectiva frecuencia 
     private ArbolB arbol;
+    public Huffman(){
+        this.cadena = "";
+        this.cadena_binaria = "";
+        
+    }
+    
+    //***Paso 5
+    //se crea el cifrado en binario de la cadena. 
+    public void ClaveBinario(){
+        char caracter;
+        Nodo nodo_aux;
+        for(int i=0; i<cadena.length(); i++){
+            caracter = cadena.charAt(i);
+            nodo_aux = arbol.Buscar(caracter);
+            cadena_binaria+=nodo_aux.getClave();
+        }
+        
+        
+    }
    //***Paso 4 
     //encontrar la clave binaria de 
     public void ClavesParaLetras(){
@@ -31,6 +50,7 @@ public class Huffman {
             clave = RecorridoAscendente(nodo_caracter);// se obtiene la clave recorriendo el arbol desde el nodo_caracter hasta la raiz 
             clave = RotarClave(clave); // se rota la clave
             nodo_caracter.setClave(clave);// la clave se agrega al nodo que tiene el caracter 
+            nodo_actual.setClave(clave);
             nodo_actual = nodo_actual.getSiguiente();
         }
         
@@ -89,7 +109,7 @@ public class Huffman {
           
           lista = lista_aux;
           System.out.println("");
-          lista.Mostrar();
+          //lista.Mostrar();
           CrearArbol();
           
         }
@@ -177,8 +197,85 @@ public class Huffman {
         }
         return cadena;
     }
-
-
+    
+    public int BinarioAEntero(String binario){
+        int entero = 0, potencia = 0;
+        for(int i=binario.length()-1; i>=0 ;i--){
+            if(binario.charAt(i) == '1'){
+                entero += (int) Math.pow(2,potencia); 
+                //System.out.println("entero: "+entero);
+            }
+            potencia++;
+        }
+        return entero;
+    }
+    public String BinarioAascii(String cadena_binario){
+        String cadena_ascii="", cadena_aux="";
+        char caracter_ascii;
+        int numero_caracteres,grupos,bits_sobrantes,contador=0,entero;//numro de caracteres - gupos de ocho bits - numero de bits sobrantes
+        numero_caracteres = cadena_binario.length();
+       // System.out.println("numero de caracterres: "+numero_caracteres);
+        grupos = numero_caracteres / 8;
+       // System.out.println("grupos: "+grupos);
+        bits_sobrantes = numero_caracteres - (8*grupos);
+        //System.out.println("bits sobrantes: "+bits_sobrantes);
+       
+        if(grupos>0){
+           
+            for(int i = cadena_binario.length()-1;i>=bits_sobrantes;i--){
+              contador++;
+                //System.out.println("i: "+i);
+            cadena_aux = cadena_binario.charAt(i)+cadena_aux;
+            //System.out.println(i);
+            if(contador == 8){
+               // System.out.println("entro");
+                //System.out.println("cadena binaria: "+cadena_aux);
+                entero = BinarioAEntero(cadena_aux);
+               // System.out.println("entero: "+entero);
+                caracter_ascii =(char)entero;
+                
+                //System.out.println("caracter ascii: ");
+                cadena_ascii = caracter_ascii+cadena_ascii;
+               // System.out.println("cadena ascii: "+cadena_ascii);
+                contador = 0;
+                cadena_aux="";
+            }
+           
+                //System.out.println("i: "+i+" contador: "+contador);
+            
+        }
+            
+        }
+        else{
+            for(int i = numero_caracteres-1; i>=0;i--){
+                cadena_aux = cadena_binario.charAt(i)+cadena_aux;
+            }
+            entero = BinarioAEntero(cadena_aux);
+            caracter_ascii = (char)entero;
+            cadena_ascii = caracter_ascii+cadena_ascii;
+        }
+        
+        
+        if(bits_sobrantes>0 && grupos>0){
+            cadena_aux="";
+            for(int i = bits_sobrantes-1;i>=0;i--){
+                cadena_aux = cadena_binario.charAt(i)+cadena_aux;
+            }
+           // System.out.println(cadena_aux);
+            entero = BinarioAEntero(cadena_aux);
+            if(entero<31 || entero == 27){
+                cadena_ascii = entero+cadena_ascii;
+            }
+            else{
+            caracter_ascii = (char)entero;
+            cadena_ascii = caracter_ascii+cadena_ascii; 
+            }
+             
+        }
+        cadenaAscii = cadena_ascii;
+        return cadenaAscii;
+        
+    }
     
     public Lista getLista() {
         return lista;
@@ -190,6 +287,10 @@ public class Huffman {
 
     public void setArbol(ArbolB arbol) {
         this.arbol = arbol;
+    }
+
+    public String getCadena_binaria() {
+        return cadena_binaria;
     }
     
 }

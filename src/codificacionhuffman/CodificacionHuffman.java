@@ -19,15 +19,23 @@ public class CodificacionHuffman {
         //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         Huffman compresion = new Huffman();
         //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
-        String cadena = "hola mama";
+        String cadena = "hola mundo";
         System.out.println("cadena: "+cadena);
         compresion.CrearListaFrecuencias(cadena);
         compresion.getLista().Mostrar();
     
         compresion.CrearArbol();
-        System.out.println("");
         compresion.ClavesParaLetras();
-        compresion.getArbol().Mostrar();
+        System.out.println("Caracter con la clave");
+        compresion.getLista().Mostrar();
+        compresion.ClaveBinario();
+        String cadena_bin=compresion.getCadena_binaria();
+        System.out.println("cadena binaria: "+cadena_bin);
+        //System.out.println("binario a entero: "+compresion.BinarioAEntero("10001110"));
+       String cadena_ascii = compresion.BinarioAascii(cadena_bin);
+        System.out.println("cadena ascii: "+compresion.BinarioAascii(cadena_bin));
+        System.out.println("longitud ascii: "+cadena_ascii.length());
+       // compresion.getArbol().Mostrar();
         //compresion.ClavesParaLetras();
         //compresion.ClavesParaLetras();
         //compresion.getLista().Mostrar();

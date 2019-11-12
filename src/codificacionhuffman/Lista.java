@@ -57,7 +57,7 @@ public class Lista {
     public void Mostrar(){
         Nodo nodo_actual = tope;
         while(nodo_actual!=null){
-            System.out.println("Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia());
+            System.out.println("Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia()+" --> Clave: "+nodo_actual.getClave());
             nodo_actual = nodo_actual.getSiguiente();
         }
     }
