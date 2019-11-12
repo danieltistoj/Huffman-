@@ -18,6 +18,7 @@ public class Nodo {
     public Nodo() {
         this.Hijoder = null;
         this.Hijoizq = null;
+        this.frecuencia = 0;
     }
 
     public Nodo getHijoder() {

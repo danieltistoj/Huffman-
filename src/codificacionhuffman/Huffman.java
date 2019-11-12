@@ -6,20 +6,25 @@
 package codificacionhuffman;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 /**
  *
  * @author Usuario
  */
 public class Huffman {
-    private String cadena,cadena_binaria,cadenaAscii;
-    private Lista lista;//tendra cada caracter de la cadena con su respectiva frecuencia 
+    private String cadena,cadena_binaria,cadenaAscii, cadena_tabla;
+    private Lista lista,lista_tabla;//tendra cada caracter de la cadena con su respectiva frecuencia 
     private ArbolB arbol;
     public Huffman(){
         this.cadena = "";
         this.cadena_binaria = "";
+        this.cadena_tabla = "";
         
     }
     
@@ -53,7 +58,16 @@ public class Huffman {
             nodo_actual.setClave(clave);
             nodo_actual = nodo_actual.getSiguiente();
         }
+        HacerTabla();
         
+    }
+    private void HacerTabla(){
+        Nodo nodo_aux = lista.getTope();
+        while(nodo_aux!=null){
+            cadena_tabla+=nodo_aux.getClave()+nodo_aux.getCaracter();
+            nodo_aux = nodo_aux.getSiguiente();
+        }
+        System.out.println("Tabla: "+cadena_tabla);
     }
     private String RotarClave(String clave){
         String clave_rotada="";
@@ -180,7 +194,7 @@ public class Huffman {
     //***Paso 1 
      //lee un archi txt y retorna lo que tenga el archivo en una cadean un string        
     public String LeerArchivo(String direccion){
-        cadena = "";
+        String cadena_aux = "";
         File archivo;
         FileReader fr;
         BufferedReader br;
@@ -191,11 +205,11 @@ public class Huffman {
             br = new BufferedReader(fr);
             String linea;
             while((linea=br.readLine())!=null){
-                cadena+=linea;
+                cadena_aux+=linea;
             }
         } catch (Exception e) {
         }
-        return cadena;
+        return cadena_aux;
     }
     
     public int BinarioAEntero(String binario){
@@ -211,14 +225,14 @@ public class Huffman {
     }
     //*** Paso 6
     //se pasa a codigo ascii la cadena binaria de la cadena 
-    public String BinarioAascii(String cadena_binario){
+    public void BinarioAascii(String cadena_binario){
         String cadena_ascii="", cadena_aux="";
         char caracter_ascii;
         int numero_caracteres,grupos,bits_sobrantes,contador=0,entero;//numro de caracteres - gupos de ocho bits - numero de bits sobrantes
         numero_caracteres = cadena_binario.length(); //se obtiene cuantos caracteres tiene la cadena binaria 
         grupos = numero_caracteres / 8; // se obtiene cuantos grupos de ocho hay
         bits_sobrantes = numero_caracteres - (8*grupos); // se obtienen el numero de bits que sobran, que no entran a un grupo de ocho 
-       
+        System.out.println("bits sobrantes: "+bits_sobrantes);
         if(grupos>0){// si al menos un grupo de 8 bits 
            
             for(int i = cadena_binario.length()-1;i>=bits_sobrantes;i--){ // se recorren 8 bits 
@@ -255,7 +269,7 @@ public class Huffman {
             cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter ascii a la cadena ascii 
         }
         cadenaAscii = cadena_ascii; 
-        return cadenaAscii;
+       // return cadenaAscii;
         
     }
     private String CompletarBinario(String cadena_bin){
@@ -266,7 +280,7 @@ public class Huffman {
         }
         return cadena_bin;
     }
-    public void Descomprimir(String cadena){
+    public void Descomprimir(String cadena,String tabla){
         int num_caracteres = cadena.length(),numero_ascii;
         String secuencia_binaria, cadena_binaria1="";
         for(int i=cadena.length()-1;i>=0;i--){//se recorre la cadena de derecha a izquierda 
@@ -278,8 +292,98 @@ public class Huffman {
             }
             cadena_binaria1 = secuencia_binaria+cadena_binaria1;// se agraga este numero binario a la cadena 
         }
+        System.out.println("cadena ascii descomprimida a binario: "+cadena_binaria1);
+        TablaALista(tabla);
+        CadenaOriginal(cadena_binaria1);
+    }
+    
+
+    public  void CrearArchivoTabla(String ruta) throws IOException {
+        File file = new File(ruta);
+        // Si el archivo no existe es creado
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(cadena_tabla);
+        bw.close();
+    }
+    
+    public  void CrearArchivoCadebaAscii(String ruta) throws IOException {
+        File file = new File(ruta);
+        // Si el archivo no existe es creado
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        FileWriter fw = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(fw);
         
-        System.out.println("la cadena binaria de la cadena ascii es: "+cadena_binaria1);
+        bw.write(cadenaAscii);
+        bw.close();
+    }
+    //pasa la tabla de valores a una lista 
+    private  void TablaALista(String cadena){
+        lista_tabla = new Lista();
+        String cadena_clave = "";
+        for(int i=0; i<cadena.length();i++){
+            if(cadena.charAt(i)!='1' && cadena.charAt(i)!='0'){
+                Nodo nodo_nuevo = new Nodo();
+                nodo_nuevo.setCaracter(cadena.charAt(i));
+                nodo_nuevo.setClave(cadena_clave);
+                lista_tabla.Insertar(nodo_nuevo);
+                cadena_clave = "";
+            }
+            else{
+             
+            cadena_clave+=cadena.charAt(i);
+            }
+        }
+        //lista_tabla.Mostrar();
+    }
+     public char BuscarPorClave(String clave){
+       Nodo nodo_actual = lista_tabla.getTope();
+       char caracter=0;
+       int conta = 0;
+         //System.out.println("longitud clave: "+clave.length());
+       while(nodo_actual!=null){
+           if(nodo_actual.getClave().length() == clave.length()){
+              // System.out.println("caracter: "+nodo_actual.getCaracter());
+               //System.out.println(nodo_actual.getClave()+" "+clave);
+               for(int i=0;i<clave.length();i++){
+                   //System.out.println(nodo_actual.getClave().charAt(i)+" "+clave.charAt(i));
+                   if(clave.charAt(i)== nodo_actual.getClave().charAt(i)){
+                       //System.out.println("entro");
+                       conta++;
+                   }
+               }
+             
+               if(conta == clave.length()){
+                 // System.out.println("Entro");
+                   caracter = nodo_actual.getCaracter();
+                
+               }
+               conta = 0;
+           }
+           nodo_actual = nodo_actual.getSiguiente();
+       }
+         //System.out.println("contador: "+conta);
+         //System.out.println("caracter: "+caracter);
+       return caracter;
+   }
+     
+    private void CadenaOriginal(String cadena_bin){
+        String cadena_aux ="",cadena_final="";
+        char caracter_aux;
+        for(int i=0;i<cadena_bin.length();i++){
+            cadena_aux+=cadena_bin.charAt(i);
+             caracter_aux = BuscarPorClave(cadena_aux);
+            if(caracter_aux!=0){
+                cadena_final+=caracter_aux;
+                cadena_aux="";
+            }
+        }
+        System.out.println("cadena descomprimida: "+cadena_final);
     }
     
     public Lista getLista() {
@@ -297,5 +401,10 @@ public class Huffman {
     public String getCadena_binaria() {
         return cadena_binaria;
     }
+
+    public Lista getLista_tabla() {
+        return lista_tabla;
+    }
+    
     
 }

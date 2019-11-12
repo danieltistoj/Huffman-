@@ -33,6 +33,19 @@ public class Lista {
        }
        return actual;
    }
+   public Nodo BuscarPorClave(String clave){
+       Nodo nodo_aux = null, nodo_actual = tope;
+       while(nodo_actual!=null){
+           System.out.println(nodo_actual.getClave());
+           if(nodo_actual.getClave() == clave){
+               nodo_aux = nodo_actual;
+           }
+           nodo_actual = nodo_actual.getSiguiente();
+       }
+       return nodo_aux;
+   }
+   
+   
    public boolean Buscar(char caracter){
        Nodo actual = tope;
        boolean existe = false;
