@@ -87,7 +87,7 @@ public class Huffman {
         Nodo nodo_nuevo = new Nodo(), nodo_1 = new Nodo(),nodo_2 = new Nodo(),nodo_conti = null;//creamos cuatro nodos 
        //pasamos los datos de los dos primeros nodos a dos nuevos nodos 
         //nodo_1 = lista.getTope();
-       nodo_1 = lista.getTope();
+        nodo_1 = lista.getTope();
         nodo_1.setLado(0);//como es el menor de los dos lleva un 0
         
         nodo_2 = lista.getTope().getSiguiente();
@@ -209,72 +209,77 @@ public class Huffman {
         }
         return entero;
     }
+    //*** Paso 6
+    //se pasa a codigo ascii la cadena binaria de la cadena 
     public String BinarioAascii(String cadena_binario){
         String cadena_ascii="", cadena_aux="";
         char caracter_ascii;
         int numero_caracteres,grupos,bits_sobrantes,contador=0,entero;//numro de caracteres - gupos de ocho bits - numero de bits sobrantes
-        numero_caracteres = cadena_binario.length();
-       // System.out.println("numero de caracterres: "+numero_caracteres);
-        grupos = numero_caracteres / 8;
-       // System.out.println("grupos: "+grupos);
-        bits_sobrantes = numero_caracteres - (8*grupos);
-        //System.out.println("bits sobrantes: "+bits_sobrantes);
+        numero_caracteres = cadena_binario.length(); //se obtiene cuantos caracteres tiene la cadena binaria 
+        grupos = numero_caracteres / 8; // se obtiene cuantos grupos de ocho hay
+        bits_sobrantes = numero_caracteres - (8*grupos); // se obtienen el numero de bits que sobran, que no entran a un grupo de ocho 
        
-        if(grupos>0){
+        if(grupos>0){// si al menos un grupo de 8 bits 
            
-            for(int i = cadena_binario.length()-1;i>=bits_sobrantes;i--){
-              contador++;
-                //System.out.println("i: "+i);
-            cadena_aux = cadena_binario.charAt(i)+cadena_aux;
-            //System.out.println(i);
-            if(contador == 8){
-               // System.out.println("entro");
-                //System.out.println("cadena binaria: "+cadena_aux);
-                entero = BinarioAEntero(cadena_aux);
-               // System.out.println("entero: "+entero);
-                caracter_ascii =(char)entero;
-                
-                //System.out.println("caracter ascii: ");
-                cadena_ascii = caracter_ascii+cadena_ascii;
-               // System.out.println("cadena ascii: "+cadena_ascii);
-                contador = 0;
-                cadena_aux="";
+            for(int i = cadena_binario.length()-1;i>=bits_sobrantes;i--){ // se recorren 8 bits 
+             contador++;
+             cadena_aux = cadena_binario.charAt(i)+cadena_aux; // se va formando el numero binario 
+            if(contador == 8){// si ya se completan los 8 bits 
+                entero = BinarioAEntero(cadena_aux);//se convierte el nuemero binario a un numero entero 
+                caracter_ascii =(char)entero; // el numero entero se convierte a ascii
+                cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter ascii a su cadena 
+                contador = 0; // el contador se deja a cero
+                cadena_aux="";// se limpia la cadena para formar el numero binario
             }
-           
-                //System.out.println("i: "+i+" contador: "+contador);
             
         }
             
         }
-        else{
-            for(int i = numero_caracteres-1; i>=0;i--){
+        else{//si no hay grupos de ocho 
+            for(int i = numero_caracteres-1; i>=0;i--){//se recorre todo la cadena binaria 
                 cadena_aux = cadena_binario.charAt(i)+cadena_aux;
             }
-            entero = BinarioAEntero(cadena_aux);
-            caracter_ascii = (char)entero;
-            cadena_ascii = caracter_ascii+cadena_ascii;
+            entero = BinarioAEntero(cadena_aux);//se pasa el numero binario a entero 
+            caracter_ascii = (char)entero;// se convierte el numero entero a ascii
+            cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter a la cadena ascii
         }
         
-        
+        //condicion que agrega los bits restantes a la cadena ascii
         if(bits_sobrantes>0 && grupos>0){
             cadena_aux="";
-            for(int i = bits_sobrantes-1;i>=0;i--){
+            for(int i = bits_sobrantes-1;i>=0;i--){//se recorre la cadena binaria desde se termina los grupos de ocho hasta que sea cero 
                 cadena_aux = cadena_binario.charAt(i)+cadena_aux;
             }
-           // System.out.println(cadena_aux);
-            entero = BinarioAEntero(cadena_aux);
-            if(entero<31 || entero == 27){
-                cadena_ascii = entero+cadena_ascii;
-            }
-            else{
-            caracter_ascii = (char)entero;
-            cadena_ascii = caracter_ascii+cadena_ascii; 
-            }
-             
+            entero = BinarioAEntero(cadena_aux); // se pasa el numero binario a entero 
+            caracter_ascii = (char)entero;//se vuelve el numero entero a ascii
+            cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter ascii a la cadena ascii 
         }
-        cadenaAscii = cadena_ascii;
+        cadenaAscii = cadena_ascii; 
         return cadenaAscii;
         
+    }
+    private String CompletarBinario(String cadena_bin){
+        int ceros_faltantes = 8-cadena_bin.length(),conta = 0;
+        while(conta<ceros_faltantes){
+            cadena_bin = '0'+cadena_bin;
+            conta++;
+        }
+        return cadena_bin;
+    }
+    public void Descomprimir(String cadena){
+        int num_caracteres = cadena.length(),numero_ascii;
+        String secuencia_binaria, cadena_binaria1="";
+        for(int i=cadena.length()-1;i>=0;i--){//se recorre la cadena de derecha a izquierda 
+           // System.out.println(cadena.charAt(i));
+            numero_ascii = cadena.charAt(i);//se obtiene el numero entero del caracter en cuestion
+            secuencia_binaria = Integer.toBinaryString(numero_ascii);//se obtiene el numero binario 
+            if(i>0 && secuencia_binaria.length()<8){//si el numero binario no tiene 8 bits y el caracter no es el ultimo, se completan los bits restantes con ceros
+                secuencia_binaria = CompletarBinario(secuencia_binaria);// se completa el numero binario para que tenga ocho bits 
+            }
+            cadena_binaria1 = secuencia_binaria+cadena_binaria1;// se agraga este numero binario a la cadena 
+        }
+        
+        System.out.println("la cadena binaria de la cadena ascii es: "+cadena_binaria1);
     }
     
     public Lista getLista() {

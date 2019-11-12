@@ -5,6 +5,8 @@
  */
 package codificacionhuffman;
 
+import java.math.BigDecimal;
+
 /**
  *
  * @author Usuario
@@ -14,12 +16,13 @@ public class CodificacionHuffman {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args)throws InterruptedException {
         
         //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         Huffman compresion = new Huffman();
         //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
         String cadena = "hola mundo";
+        long inicio = System.currentTimeMillis();
         System.out.println("cadena: "+cadena);
         compresion.CrearListaFrecuencias(cadena);
         compresion.getLista().Mostrar();
@@ -32,9 +35,17 @@ public class CodificacionHuffman {
         String cadena_bin=compresion.getCadena_binaria();
         System.out.println("cadena binaria: "+cadena_bin);
         //System.out.println("binario a entero: "+compresion.BinarioAEntero("10001110"));
-       String cadena_ascii = compresion.BinarioAascii(cadena_bin);
-        System.out.println("cadena ascii: "+compresion.BinarioAascii(cadena_bin));
+        String cadena_ascii = compresion.BinarioAascii(cadena_bin);
+        System.out.println("cadena ascii: "+cadena_ascii);
         System.out.println("longitud ascii: "+cadena_ascii.length());
+        compresion.Descomprimir(cadena_ascii);
+        long fin =  System.currentTimeMillis();
+        BigDecimal inicio1 = new BigDecimal(inicio);
+        BigDecimal fin1 = new BigDecimal(fin);
+        BigDecimal mil = new BigDecimal(1000);
+        fin1 = fin1.subtract(inicio1);
+        fin1 = fin1.divide(mil);
+        System.out.println("timepo de compresion: "+fin1+" segundos");
        // compresion.getArbol().Mostrar();
         //compresion.ClavesParaLetras();
         //compresion.ClavesParaLetras();
