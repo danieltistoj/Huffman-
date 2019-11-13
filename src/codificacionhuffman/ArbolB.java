@@ -87,15 +87,16 @@ public class ArbolB {
         }
         
     }
-       public void Mostrar(){
+       public String Mostrar(){
+         cadena = "";
         Nodo aux = raiz;
         MostrarArbol(aux);
-       
+       return cadena;
         
     }
        private void MostrarArbol(Nodo nodo_raiz){
         if(nodo_raiz!=null){
-            System.out.println("Caracter: "+nodo_raiz.getCaracter()+" Frecuencia: "+nodo_raiz.getFrecuencia()+" Clave: "+nodo_raiz.getClave());
+            cadena+="\n"+"Caracter: "+nodo_raiz.getCaracter()+" Frecuencia: "+nodo_raiz.getFrecuencia()+" Clave: "+nodo_raiz.getClave();
             MostrarArbol(nodo_raiz.getHijoizq());
             MostrarArbol(nodo_raiz.getHijoder());
         }

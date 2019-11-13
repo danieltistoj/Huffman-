@@ -11,6 +11,7 @@ package codificacionhuffman;
  */
 public class Lista {
    private Nodo tope=null;
+   private String cadena;
    private int size=0;
    
    public void Insertar(Nodo nodo_referencia){
@@ -67,12 +68,14 @@ public class Lista {
         
     }
     
-    public void Mostrar(){
+    public String Mostrar(){
+        cadena = "";
         Nodo nodo_actual = tope;
         while(nodo_actual!=null){
-            System.out.println("Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia()+" --> Clave: "+nodo_actual.getClave());
+            cadena+="\n"+"Caracter: "+nodo_actual.getCaracter()+" --> Frecuencia: "+nodo_actual.getFrecuencia()+" --> Clave: "+nodo_actual.getClave();
             nodo_actual = nodo_actual.getSiguiente();
         }
+        return cadena;
     }
 
     public Nodo getTope() {

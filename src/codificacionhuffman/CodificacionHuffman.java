@@ -18,11 +18,15 @@ public class CodificacionHuffman {
      * @param args the command line arguments
      */
     public static void main(String[] args)throws InterruptedException, IOException {
-      
-        //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
+       Ventana ventana = new Ventana();
+       ventana.setVisible(true);
+        
+
+
+//***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         
         
-        Huffman compresion = new Huffman();
+       // Huffman compresion = new Huffman();
         /*
         char c = '8';
         int num = c;
@@ -49,17 +53,19 @@ public class CodificacionHuffman {
         
         //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
         //compresion.tablatxt("C:\\Users\\Usuario\\Documents\\prueva.txt","sfasdfa");
-       
+        /*
+       Huffman compresion = new Huffman();
         String cadena = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\hola.txt");
         long inicio = System.currentTimeMillis();
         System.out.println("cadena: "+cadena);
         compresion.CrearListaFrecuencias(cadena);
-        compresion.getLista().Mostrar();
-    
+        System.out.println(compresion.getLista().Mostrar());
+       
         compresion.CrearArbol();
         compresion.ClavesParaLetras();
         System.out.println("Caracter con la clave");
-        compresion.getLista().Mostrar();
+        System.out.println( compresion.getLista().Mostrar());
+       
         compresion.ClaveBinario();
         String cadena_bin=compresion.getCadena_binaria();
         System.out.println("cadena binaria: "+cadena_bin);
@@ -82,7 +88,7 @@ public class CodificacionHuffman {
         fin1 = fin1.subtract(inicio1);
         fin1 = fin1.divide(mil);
         System.out.println("timepo de compresion: "+fin1+" segundos");
-          
+         */
     }
     
 }

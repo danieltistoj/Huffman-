@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -68,7 +69,7 @@ public class Huffman {
             cadena_tabla+=nodo_aux.getClave()+nodo_aux.getCaracter();
             nodo_aux = nodo_aux.getSiguiente();
         }
-        System.out.println("Tabla: "+cadena_tabla);
+        //System.out.println("Tabla: "+cadena_tabla);
     }
     private String RotarClave(String clave){
         String clave_rotada="";
@@ -208,7 +209,9 @@ public class Huffman {
             while((linea=br.readLine())!=null){
                 cadena_aux+=linea;
             }
+           
         } catch (Exception e) {
+           
         }
         return cadena_aux;
     }
@@ -485,6 +488,14 @@ public class Huffman {
 
     public String getCadenaAscii() {
         return cadenaAscii;
+    }
+
+    public String getCadena_tabla() {
+        return cadena_tabla;
+    }
+
+    public String getCadena() {
+        return cadena;
     }
     
     
