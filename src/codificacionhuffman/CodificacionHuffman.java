@@ -74,12 +74,17 @@ public class CodificacionHuffman {
          
         compresion.CrearArchivoTabla("C:\\Users\\Usuario\\Documents\\tabla2.txt");
         compresion.CrearArchivoCadebaAscii("C:\\Users\\Usuario\\Documents\\cadenaAscii2.txt");
+        */
         
-       //long inicio = System.currentTimeMillis();
+        /*
+       long inicio = System.currentTimeMillis();
+        Huffman compresion = new Huffman();
         String cadena_ascii = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\cadenaAscii2.txt");
         String cadena_tabla = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\tabla2.txt");
         compresion.Descomprimir(cadena_ascii,cadena_tabla);
-        
+        System.out.println(compresion.getTabla_descompresio());
+        System.out.println(compresion.getCadena_des());
+        System.out.println(compresion.getCadena_binaria());
        
         long fin =  System.currentTimeMillis();
         BigDecimal inicio1 = new BigDecimal(inicio);
@@ -88,6 +93,7 @@ public class CodificacionHuffman {
         fin1 = fin1.subtract(inicio1);
         fin1 = fin1.divide(mil);
         System.out.println("timepo de compresion: "+fin1+" segundos");
+        
          */
     }
     

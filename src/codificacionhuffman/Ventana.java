@@ -168,11 +168,40 @@ public class Ventana extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void boton_descomprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_descomprimirActionPerformed
-        // TODO add your handling code here:
+        Huffman compresion = new Huffman();
+        String cadena_ascii, cadena_tabla, direccion_ascii, direccion_tabla; 
+        direccion_ascii = JOptionPane.showInputDialog("Ingrese la direccion de la cadean Ascii");
+        direccion_tabla = JOptionPane.showInputDialog("Ingrese la direccion de la tabla");
+        try {
+            long inicio = System.currentTimeMillis();
+            cadena_ascii = compresion.LeerArchivo(direccion_ascii);
+            cadena_tabla = compresion.LeerArchivo(direccion_tabla);
+            compresion.Descomprimir(cadena_ascii, cadena_tabla);
+            area_texto2.append("Cadena Ascii: "+cadena_ascii+"\n");
+            area_texto2.append("Tabla: "+cadena_tabla+"\n\n");
+            area_texto2.append("***DESCOMPRESION POR CARACTER***\n");
+            area_texto2.append(compresion.getTabla_descompresio()+"\n");
+            area_texto2.append("Cadena binaria: "+compresion.getCadena_binaria()+"\n");
+            area_texto2.append("Cadena Descomprimida: "+compresion.getCadena_des()+"\n");
+           
+            long fin =  System.currentTimeMillis();
+            BigDecimal inicio1 = new BigDecimal(inicio);
+            BigDecimal fin1 = new BigDecimal(fin);
+            BigDecimal mil = new BigDecimal(1000);
+            fin1 = fin1.subtract(inicio1);
+            fin1 = fin1.divide(mil);
+            area_texto2.append("Tiempo de descompresion: "+fin1+" (s) ");
+        
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane,"Error al ejecutar","Error",JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
     }//GEN-LAST:event_boton_descomprimirActionPerformed
      
     private void boton_comprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_comprimirActionPerformed
         Huffman compresion = new Huffman();
+        area_texto.setText("");
         String cadena_aux = "",cadena_binaria;
         int log_cadena, log_cadenaAscii, diferencia,porcentaje;
         File archivo;
@@ -214,7 +243,7 @@ public class Ventana extends javax.swing.JFrame {
             area_texto.append("Tabla: "+compresion.getCadena_tabla());
             try {
             String direccion_tabla = JOptionPane.showInputDialog("Ingrese la direccion donde guardara la tabla");
-            compresion.CrearArchivoTabla(direccion);
+            compresion.CrearArchivoTabla(direccion_tabla);
             
             String direccion_ascii = JOptionPane.showInputDialog("Ingrese direccion donde guardara la cadena Ascii");
             compresion.CrearArchivoCadebaAscii(direccion_ascii);
