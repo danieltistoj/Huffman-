@@ -219,12 +219,12 @@ public class Ventana extends javax.swing.JFrame {
             }
             JOptionPane.showMessageDialog(rootPane,"El archivo se pudo leer con exito");
             area_texto.append("Contenido de TXT: "+cadena_aux);
-            JOptionPane.showMessageDialog(rootPane,"Ver lista de caracteres");
+            //JOptionPane.showMessageDialog(rootPane,"Ver lista de caracteres");
             area_texto.append("\n\n***LISTA DE CARACTERES CON FRECUENCIA***");
             area_texto.append("\n");
             compresion.CrearListaFrecuencias(cadena_aux);
             area_texto.append(compresion.getLista().Mostrar());
-            JOptionPane.showMessageDialog(rootPane,"Ver lista de caracteres con clave binaria");
+           // JOptionPane.showMessageDialog(rootPane,"Ver lista de caracteres con clave binaria");
             
             compresion.CrearArbol();
             compresion.ClavesParaLetras();
@@ -232,13 +232,15 @@ public class Ventana extends javax.swing.JFrame {
             area_texto.append("\n***LISTA DE CARACTERES CON FRECUENCIA Y CLAVE BINARIA***\n");
             
             area_texto.append(compresion.getLista().Mostrar());
-            JOptionPane.showMessageDialog(rootPane,"Ver cadena binaria");
+            //JOptionPane.showMessageDialog(rootPane,"Ver cadena binaria");
             compresion.ClaveBinario();
             cadena_binaria = compresion.getCadena_binaria();
             area_texto.append("\n\nCadena binaria: "+cadena_binaria);
             compresion.BinarioAascii(cadena_binaria);
+            area_texto.append("\n\n***CARACTER ASCII CON NUMERO ENTERO Y BINARIO***\n\n");
+            area_texto.append(compresion.getCadena_ascii_entero());
             
-            JOptionPane.showMessageDialog(rootPane,"Ver cadena Ascii y tabla");
+           // JOptionPane.showMessageDialog(rootPane,"Ver cadena Ascii y tabla");
             area_texto.append("\n\nCadena Ascii: "+compresion.getCadenaAscii()+"\n");
             area_texto.append("Tabla: "+compresion.getCadena_tabla());
             try {

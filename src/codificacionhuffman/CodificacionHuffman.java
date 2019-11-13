@@ -25,35 +25,13 @@ public class CodificacionHuffman {
 
 //***Funcionamiento de la clase de lectura de archivo txt de la clase huffman
         
-        
-       // Huffman compresion = new Huffman();
-        /*
-        char c = '8';
-        int num = c;
-        System.out.println("***"+num);
-        String  secuencia_binaria = Integer.toBinaryString(8);//
-        System.out.println(secuencia_binaria); 
-        String cadena ="";
-        cadena+='3';
-        cadena+='0';
-        int numEntero = Integer.parseInt(cadena);
-        System.out.println(numEntero+1);
-       */ 
-       /*
-        char c = 'a';
-        int num = c;
-        if(Character.isDigit(c)){
-            System.out.println("es un digito");
-        }
-        else{
-            System.out.println("no es un digito");
-        }
-        
-       */
-        
+      
+      
         //***Funcionamiento de la lista con los caracteres con su frecuencia de la cadena 
         //compresion.tablatxt("C:\\Users\\Usuario\\Documents\\prueva.txt","sfasdfa");
-        /*
+        
+       /*
+       
        Huffman compresion = new Huffman();
         String cadena = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\hola.txt");
         long inicio = System.currentTimeMillis();
@@ -70,17 +48,20 @@ public class CodificacionHuffman {
         String cadena_bin=compresion.getCadena_binaria();
         System.out.println("cadena binaria: "+cadena_bin);
          compresion.BinarioAascii(cadena_bin);
+         System.out.println(compresion.getCadena_ascii_entero());
          System.out.println("cadena ascii: "+compresion.getCadenaAscii());
          
         compresion.CrearArchivoTabla("C:\\Users\\Usuario\\Documents\\tabla2.txt");
         compresion.CrearArchivoCadebaAscii("C:\\Users\\Usuario\\Documents\\cadenaAscii2.txt");
-        */
+       
         
-        /*
-       long inicio = System.currentTimeMillis();
-        Huffman compresion = new Huffman();
+        
+       // long inicio = System.currentTimeMillis();
+        //Huffman compresion = new Huffman();
+        
         String cadena_ascii = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\cadenaAscii2.txt");
         String cadena_tabla = compresion.LeerArchivo("C:\\Users\\Usuario\\Documents\\tabla2.txt");
+        System.out.println("cadena ascii: "+cadena_ascii);
         compresion.Descomprimir(cadena_ascii,cadena_tabla);
         System.out.println(compresion.getTabla_descompresio());
         System.out.println(compresion.getCadena_des());
@@ -93,8 +74,8 @@ public class CodificacionHuffman {
         fin1 = fin1.subtract(inicio1);
         fin1 = fin1.divide(mil);
         System.out.println("timepo de compresion: "+fin1+" segundos");
-        
-         */
+     
+       */  
     }
     
 }

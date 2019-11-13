@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class Huffman {
-    private String cadena,cadena_binaria,cadenaAscii, cadena_tabla,tabla_descompresio,cadena_des;
+    private String cadena,cadena_binaria,cadenaAscii, cadena_tabla,tabla_descompresio,cadena_des,cadena_ascii_entero;
     private Lista lista,lista_tabla;//tendra cada caracter de la cadena con su respectiva frecuencia 
     private int ceros_inicio;
     private ArbolB arbol;
@@ -124,7 +124,7 @@ public class Huffman {
           lista_aux.Insertar(nodo_nuevo);//y por ultimo insertamos el nuevo nodo. 
           
           lista = lista_aux;
-          System.out.println("");
+          //System.out.println("");
           //lista.Mostrar();
           CrearArbol();
           
@@ -230,6 +230,7 @@ public class Huffman {
     //*** Paso 6
     //se pasa a codigo ascii la cadena binaria de la cadena 
     public void BinarioAascii(String cadena_binario){
+        cadena_ascii_entero = "";
         String cadena_ascii="", cadena_aux="";
         char caracter_ascii,caracter_de_cero = (char)0;
         int numero_caracteres,grupos,bits_sobrantes,contador=0,entero,ceros_inicio;//numro de caracteres - gupos de ocho bits - numero de bits sobrantes
@@ -244,7 +245,11 @@ public class Huffman {
              cadena_aux = cadena_binario.charAt(i)+cadena_aux; // se va formando el numero binario 
             if(contador == 8){// si ya se completan los 8 bits 
                 entero = BinarioAEntero(cadena_aux);//se convierte el nuemero binario a un numero entero 
+                
                 caracter_ascii =(char)entero; // el numero entero se convierte a ascii
+               cadena_ascii_entero+="Numero Binario: "+cadena_aux+" ---> Numero Entero: "+entero+" ---> Caracter Ascii: "+caracter_ascii+"\n";
+               // System.out.println("entero: "+entero);
+                //System.out.println("caracter: "+caracter_ascii);
                 cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter ascii a su cadena 
                 contador = 0; // el contador se deja a cero
                 cadena_aux="";// se limpia la cadena para formar el numero binario
@@ -259,6 +264,8 @@ public class Huffman {
             }
             entero = BinarioAEntero(cadena_aux);//se pasa el numero binario a entero 
             caracter_ascii = (char)entero;// se convierte el numero entero a ascii
+            cadena_ascii_entero+="Numero Binario: "+cadena_aux+" ---> Numero Entero: "+entero+" ---> Caracter Ascii: "+caracter_ascii+"\n";
+             //System.out.println("entero: "+entero);
             cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter a la cadena ascii
         }
         
@@ -269,8 +276,16 @@ public class Huffman {
                 cadena_aux = cadena_binario.charAt(i)+cadena_aux;
             }
             entero = BinarioAEntero(cadena_aux); // se pasa el numero binario a entero 
+           
+            
+            //System.out.println("entero: "+entero);
            // caracter_ascii = (char)entero;//se vuelve el numero entero a ascii
-            cadena_ascii = entero+cadena_ascii;// se agrega el caracter ascii a la cadena ascii 
+           if(entero>0){
+            caracter_ascii = (char)entero;
+            cadena_ascii = caracter_ascii+cadena_ascii;// se agrega el caracter ascii a la cadena ascii    
+             cadena_ascii_entero+="Numero Binario: "+cadena_aux+" ---> Numero Entero: "+entero+" ---> Caracter Ascii: "+caracter_ascii+"\n";
+           }
+           
         }
         ceros_inicio = NumeroCeroIzq(cadena_binario);
         cadena_tabla+=ceros_inicio;
@@ -328,42 +343,8 @@ public class Huffman {
         String secuencia_binaria, cadena_binaria1="";
         for(int i=cadena.length()-1;i>=0;i--){//se recorre la cadena de derecha a izquierda 
             
-            if(Character.isDigit(cadena.charAt(i)) && AsciiOdecimal(i-1, cadena) == 0){//vemos si el caracter es un digito
-                int temp = i-1,contador=0;
-                boolean seguir =  true;
-                String cadena_aux = "";
-                cadena_aux+=cadena.charAt(i);
-               // System.out.println(cadena_aux);
-                if(temp>=0){
-                while(seguir){ 
-                    if(Character.isDigit(cadena.charAt(temp))){
-                         cadena_aux = cadena.charAt(temp)+cadena_aux;
-                         contador++;
-                    }
-                        temp--;
-                        if(temp>0){
-                            if(!Character.isDigit(cadena.charAt(temp))){
-                                seguir = false;
-                            }
-                        }
-                        else{
-                            seguir = false;
-                        }
-                     
-                }
-                }
-                numero_ascii = Integer.parseInt(cadena_aux);
-               // System.out.println("numero ascii: "+numero_ascii+" caracter ascii: "+cadena_aux);
-                //numero_ascii = Integer.parseInt(String.valueOf(cadena.charAt(i)));
-                tabla_descompresio+="numero ascii: "+numero_ascii+" caracter ascii: "+cadena_aux;
-                i = i-contador;
-            }
-            else{
                numero_ascii = cadena.charAt(i);//se obtiene el numero entero del caracter en cuestion 
                tabla_descompresio+="numero ascii: "+numero_ascii+" caracter ascii: "+cadena.charAt(i);
-               //System.out.println("numero ascii: "+numero_ascii+" caracter ascii: "+cadena.charAt(i));
-            }
-            
            // tabla_descompresio+="numero ascii: "+numero_ascii+" caracter ascii: "+cadena.charAt(i);
             secuencia_binaria = Integer.toBinaryString(numero_ascii);//se obtiene el numero binario 
             if(i>0 && secuencia_binaria.length()<8){//si el numero binario no tiene 8 bits y el caracter no es el ultimo, se completan los bits restantes con ceros
@@ -508,6 +489,10 @@ public class Huffman {
 
     public String getCadena_des() {
         return cadena_des;
+    }
+
+    public String getCadena_ascii_entero() {
+        return cadena_ascii_entero;
     }
     
     
